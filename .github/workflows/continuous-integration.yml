@@ -90,7 +90,7 @@ jobs:
       - name: Run tests
         run: yarn test --coverage
 
-      - uses: codecov/codecov-action@v1
+      - uses: codecov/codecov-action@v4
         if: always()
 
   package-finder:
@@ -126,7 +126,7 @@ jobs:
       matrix:
         package: ${{fromJson(needs.package-finder.outputs.packages)}}
     steps:
-      - uses: google-github-actions/release-please-action@v2
+      - uses: google-github-actions/release-please-action@v4
         id: release-please
         with:
           path: packages/${{ matrix.package }}
