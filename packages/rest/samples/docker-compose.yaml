@@ -1,0 +1,47 @@
+version: '3.8'
+
+volumes:
+  postgres:
+
+services:
+  credo:
+    image: ghcr.io/openwallet-foundation/credo-rest:0.10.0
+    depends_on:
+      - postgres
+    ports:
+      # Admin API
+      - 3000:3000
+
+      # DIDComm
+      - 6000:6000
+      - 6001:6001
+
+    # Use the local config file in the container
+    volumes:
+      - ./cliConfig.json:/cliConfig.json
+    command: ['--config', '/cliConfig.json']
+
+    # This dynamically loads the wallet id, wallet key and agent endpoint (so you can use ngrok)
+    # you also want to dynamically inject postgres connection details in prod
+    env_file:
+      - path: docker.env.local
+        required: true
+
+    environment:
+      # Configure credo to use postgres as storage
+      CREDO_REST_POSTGRES_HOST: postgres:5432
+      CREDO_REST_POSTGRES_USERNAME: postgres
+      CREDO_REST_POSTGRES_PASSWORD: postgres
+      CREDO_REST_STORAGE_TYPE: postgres
+
+  # Postgres (when deploying you probably want to use a managed service for this)
+  postgres:
+    image: postgres:15-alpine
+    ports:
+      - '5432:5432'
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DATABASE: postgres
+    volumes:
+      - postgres:/var/lib/postgresql/data

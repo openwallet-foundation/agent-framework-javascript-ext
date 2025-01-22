@@ -124,7 +124,7 @@ describe('OpenId4VcVerificationSessionsController', () => {
         ),
       },
       authorizationRequest: expect.stringContaining(
-        `openid://?request_uri=${encodeURIComponent(`http://localhost:4848/siop/publicVerifierId/authorization-requests/`)}`,
+        `openid4vp://?request_uri=${encodeURIComponent(`http://localhost:4848/siop/publicVerifierId/authorization-requests/`)}`,
       ),
     })
 

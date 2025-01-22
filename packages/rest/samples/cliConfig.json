@@ -16,8 +16,7 @@
   ],
   "cheqdLedger": [
     {
-      "network": "mainnet",
-      "cosmosPayerSeed": "bird cage swing"
+      "network": "mainnet"
     },
     {
       "network": "testnet"
@@ -33,17 +32,16 @@
   "inboundTransport": [
     {
       "transport": "http",
-      "port": 5000
+      "port": 6000
     },
     {
       "transport": "ws",
-      "port": 5001
+      "port": 6001
     }
   ],
   "outboundTransport": ["http", "ws"],
   "autoAcceptMediationRequests": false,
   "connectionImageUrl": "https://image.com/image.png",
-  "webhookUrl": "https://my-webhook-server",
   "adminPort": 3000,
   "multiTenant": true
 }
